@@ -9,3 +9,20 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 import random
 
+@login_required(login_url='login')
+def index(request):
+    if request.method == "POST":
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+    else:
+        form = PostForm()
+
+    try:
+        posts = Post.objects.all()
+        print(posts)
+    except Post.DoesNotExist:
+        posts = None
+    return render(request, 'index.html', {'posts': posts, 'form': form, })
