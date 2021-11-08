@@ -3,9 +3,10 @@
 
 
 <body>{% block content %}
-
     <div class="container">
         <h2 class="mt-4">Websites available</h2>
+    </div>
+    <div class="container">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -45,56 +46,57 @@
     <span class="visually-hidden" style="color: black;">Next</span>
   </button>
         </div>
-        <div class="row">
-            {% if posts %}
+    </div>
+    <div class="row">
+        {% if posts %}
 
-            <div class="templates display" style="background-color: aquamarine;">
-                {% for post in posts %}
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="view overlay">
-                            <img class="card-img-top" src="{{ post.photo.cdn_url }}" alt="{{photo.title}}">
-                            <a href="{% url 'project' post.title %}">
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title"><a href="{% url 'project' post.title %}">{{post.title|title}}</a> <a class="btn btn-sm btn-outline-info" href="{{ post.url }}"> View</a></h4>
-                            <hr>
-                            <p class="card-text "><img src="{{post.user.profile.profile_picture.url}}" class="nav-img mr-2" alt=""> By {{post.user.username|title}} <span style="float:right">{{post.date|date}}</span>
+        <div class="templates display" style="background-color: aquamarine;">
+            {% for post in posts %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="view overlay">
+                        <img class="card-img-top" src="{{ post.photo.cdn_url }}" alt="{{photo.title}}">
+                        <a href="{% url 'project' post.title %}">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="{% url 'project' post.title %}">{{post.title|title}}</a> <a class="btn btn-sm btn-outline-info" href="{{ post.url }}"> View</a></h4>
+                        <hr>
+                        <p class="card-text "><img src="{{post.user.profile.profile_picture.url}}" class="nav-img mr-2" alt=""> By {{post.user.username|title}} <span style="float:right">{{post.date|date}}</span>
 
 
-                            </p>
-                        </div>
+                        </p>
                     </div>
                 </div>
-                {% endfor %}
             </div>
-
-            {% endif %}
+            {% endfor %}
         </div>
-        {% if user.is_authenticated %}
-        <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Upload a project</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Upload a project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="post" enctype="multipart/form-data">
-                            {% csrf_token %} {{ form|crispy }}
-                            <input type="submit" class="btn btn-sm btn-info" value="Save" />
-                            <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %} {{ form|crispy }}
+                        <input type="submit" class="btn btn-sm btn-info" value="Save" />
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
                             </button>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
-        {% endif %}
+    </div>
+    {% endif %}
 
     </div>
     </div>
